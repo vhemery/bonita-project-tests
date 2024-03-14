@@ -21,4 +21,4 @@ jobs:
     needs: get-time-stamp
     steps:
       - name: Echo timestamp
-        run: echo "Timestamp: ${{ needs.get-time-stamp.outputs.timestamp }}"
+        run: echo "Timestamp ${{ needs.get-time-stamp.outputs.timestamp }}"
