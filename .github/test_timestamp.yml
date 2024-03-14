@@ -1,0 +1,24 @@
+name: Test timestamp
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        required: true
+        description: "Version: The technical version to build (eg: 10.0.0)"
+jobs:
+  get-time-stamp:
+    runs-on: ubuntu-22.04
+    outputs:
+      timestamp: ${{ steps.set-timestamp.outputs.timestamp }}
+    steps:
+      - name: Set timestamp
+        id: set-timestamp
+        run: echo "::set-output name=timestamp::$(date +'%Y%m%d_%H%M%S')"
+  echo-timestamp:
+    runs-on: ubuntu-22.04
+    needs: get-time-stamp
+    steps:
+      - name: Echo timestamp
+        run: echo "Timestamp: ${{ needs.get-time-stamp.outputs.timestamp }}"
