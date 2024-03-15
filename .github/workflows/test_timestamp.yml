@@ -1,20 +1,22 @@
-name: Test timestamp
+name: Test timestamp=
 
 on:
   workflow_dispatch:
     inputs:
-      version:
+      timestamp:
         type: string
-        required: true
-        description: "Version: The technical version to build (eg: 10.0.0)"
+        required: false
+        description: "Timestamp to reproduce build. Keep empty to use a generated one. Expected format is: YYYYMMDD_HHmmSS"
+
 jobs:
   get-time-stamp:
     runs-on: ubuntu-22.04
     outputs:
-      timestamp: ${{ steps.set-timestamp.outputs.timestamp }}
+      timestamp: ${{ inputs.timestamp || steps.set-timestamp.outputs.timestamp }}
     steps:
       - name: Set timestamp
         id: set-timestamp
+        if: ${{ inputs.timestamp == null }}
         run: echo "timestamp=$(date +'%Y%m%d_%H%M%S')" >> $GITHUB_OUTPUT
   echo-timestamp:
     runs-on: ubuntu-22.04
