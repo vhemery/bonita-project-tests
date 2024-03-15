@@ -1,0 +1,33 @@
+name: Test empty version
+
+run-name: Test empty version string
+
+on:
+  workflow_dispatch:
+    inputs:
+      runtimeVersion:
+        type: string
+        required: true
+        description: "Version: The technical version to update Bonita Runtime to (eg: 10.0.0 or 10.0-SNAPSHOT)"
+      studioVersion:
+        type: string
+        required: false
+        description: "Version: The technical version to update Bonita Studio to (eg: 10.0.1-SNAPSHOT, leave empty to use the same as runtimeVersion)"
+jobs:
+
+  echo-test:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: echo-cond-empty
+        if: ${{ inputs.runtimeVersion != ''}}
+        run: echo ${{ inputs.runtimeVersion }}
+
+      - name: echo-cond-null
+        if: ${{ inputs.runtimeVersion != null}}
+        run: echo ${{ inputs.runtimeVersion }}
+
+      - name: echo-always
+        run: echo ${{ inputs.runtimeVersion }}
+
+      - name: echo-bool
+        run: echo ${{ inputs.runtimeVersion == '' }} ${{ inputs.runtimeVersion == null }}
