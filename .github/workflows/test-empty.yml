@@ -19,15 +19,15 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: echo-cond-empty
-        if: ${{ inputs.runtimeVersion != ''}}
-        run: echo ${{ inputs.runtimeVersion }}
+        if: ${{ inputs.studioVersion != ''}}
+        run: echo ${{ inputs.studioVersion }}
 
       - name: echo-cond-null
-        if: ${{ inputs.runtimeVersion != null}}
-        run: echo ${{ inputs.runtimeVersion }}
+        if: ${{ inputs.studioVersion != null}}
+        run: echo ${{ inputs.studioVersion }}
 
       - name: echo-always
-        run: echo ${{ inputs.runtimeVersion }}
+        run: echo ${{ inputs.studioVersion }} ${{ inputs.studioVersion || inputs.runtimeVersion }}
 
       - name: echo-bool
         run: echo ${{ inputs.runtimeVersion == '' }} ${{ inputs.runtimeVersion == null }}
