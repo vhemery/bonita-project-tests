@@ -30,4 +30,4 @@ jobs:
         run: echo ${{ inputs.studioVersion }} ${{ inputs.studioVersion || inputs.runtimeVersion }}
 
       - name: echo-bool
-        run: echo ${{ inputs.studioVersion  == '' }} ${{ inputs.studioVersion  == null }}
+        run: echo ${{ inputs.studioVersion  == '' }} ${{ inputs.studioVersion  == null }} ${{ ''  == null }}
