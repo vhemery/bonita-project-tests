@@ -9,7 +9,8 @@ on:
         description: "Timestamp to reproduce build. Keep empty to use a generated one. Expected format is: YYYYMMDD_HHmmSS"
 
 jobs:
-  get-time-stamp:
+  get-timestamp:
+    name: Get timestamp from input or generate one. Do not re-run when timestamp input is empty, to preserve the generated one.
     runs-on: ubuntu-22.04
     outputs:
       timestamp: ${{ inputs.timestamp || steps.set-timestamp.outputs.timestamp }}
@@ -20,7 +21,7 @@ jobs:
         run: echo "timestamp=$(date +'%Y%m%d_%H%M%S')" >> $GITHUB_OUTPUT
   echo-timestamp:
     runs-on: ubuntu-22.04
-    needs: get-time-stamp
+    needs: get-timestamp
     steps:
       - name: Echo timestamp
-        run: echo "Timestamp ${{ needs.get-time-stamp.outputs.timestamp }}"
+        run: echo "Timestamp ${{ needs.get-timestamp.outputs.timestamp }}"
